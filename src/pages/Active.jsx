@@ -1,7 +1,9 @@
 
-
+import {ContentHeader} from '@components/content-header/ContentHeader';
 export const Active = () => {
   return (
+    <>
+    <ContentHeader title="Active Page"/>
     <div className="container-fluid">
                     <div className="row">
                         <div className="col-lg-6">
@@ -53,5 +55,6 @@ export const Active = () => {
                         </div>
                     </div>
                 </div>
+                </>
   )
 }

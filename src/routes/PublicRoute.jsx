@@ -1,7 +1,8 @@
-import {Navigate} from 'react-router-dom';
+import {Navigate, Outlet} from 'react-router-dom';
 
 export const PublicRoute = () => {
+    const isLoggedIn = true;
   return (
-    <Navigate to="/" />
+      isLoggedIn ? <Navigate to="/" /> : <Outlet />
   )
 }
