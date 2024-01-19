@@ -1,6 +1,27 @@
-import {Link} from 'react-router-dom';
+import { useState } from 'react'
+import {Link,NavLink, useLocation} from 'react-router-dom';
 
 export const Sidebar = () => {
+    const [isSubMenuOpen, setSubMenuOpen] = useState(false);
+
+    const location = useLocation();
+
+    const isStarterPagesActive = location.pathname === '/' || location.pathname === '/active' || location.pathname === '/inactive';
+
+    const handleSubMenuToggle = () => {
+        setSubMenuOpen(!isSubMenuOpen);
+    };
+
+    const handleSubMenuLinkClick = () => {
+        // Close the submenu only when clicking on the submenu link
+        setSubMenuOpen(false);
+    };
+    const submenuStyles = {
+
+        cursor: 'pointer',
+
+
+      };
   return (
         <aside className="main-sidebar sidebar-dark-primary elevation-4">
 
@@ -31,34 +52,35 @@ export const Sidebar = () => {
                 </div>
 
                 <nav className="mt-2">
-                    <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <li className="nav-item menu-open">
-                            <Link to="" className="nav-link active">
+                    <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false" style={submenuStyles}>
+                        <li className={`nav-item ${isSubMenuOpen ? 'menu-open' : ''} `}>
+
+                            <a className={`nav-link ${isStarterPagesActive ? 'active' : ''}`} onClick={handleSubMenuToggle} >
                                 <i className="nav-icon fas fa-tachometer-alt"></i>
                                 <p>Starter Pages
                                     <i className="right fas fa-angle-left"></i>
                                 </p>
-                            </Link>
+                            </a>
                             <ul className="nav nav-treeview">
                                 <li className="nav-item">
-                                    <Link to="/active" className="nav-link active">
+                                    <NavLink to="/active" className="nav-link" activeclassname="active">
                                         <i className="far fa-circle nav-icon"></i>
                                         <p>Active</p>
-                                    </Link>
+                                    </NavLink>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/inactive" className="nav-link">
+                                    <NavLink to="/inactive" className="nav-link" activeclassname="active">
                                         <i className="far fa-circle nav-icon"></i>
                                          <p>Inactive</p>
-                                    </Link>
+                                    </NavLink>
                                 </li>
                             </ul>
                         </li>
                         <li className="nav-item">
-                            <Link to="/sample" className="nav-link">
+                            <NavLink to="/sample" className="nav-link" activeclassname="active" onClick={handleSubMenuLinkClick}>
                                 <i className="nav-icon fas fa-th"></i>
                                 <p>Simple Link</p>
-                            </Link>
+                            </NavLink>
                         </li>
                     </ul>
                 </nav>

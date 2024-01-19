@@ -5,6 +5,7 @@ import { Starter } from './pages/Starter'
 import {Active } from './pages/Active'
 import {Inactive } from './pages/Inactive'
 import {Login } from './pages/auth/Login'
+import {Sample } from './pages/Sample'
 function App() {
 
 
@@ -19,6 +20,7 @@ function App() {
             <Route path="/" element={<Starter />}>
                 <Route path="/active" element={<Active />}/>
                 <Route path="/inactive" element={<Inactive />}/>
+                <Route path="/sample" element={<Sample />}/>
             </Route>
         </Route>
       </Routes>
