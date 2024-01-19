@@ -2,7 +2,7 @@ import { Header } from "./layouts/Header"
 import { Sidebar } from "./layouts/Sidebar"
 import { Footer } from "./layouts/Footer"
 import { Outlet } from 'react-router-dom'
-
+import { ControlSidebar } from './layouts/ControlSidebar'
 export const Starter = () => {
   return (
 
@@ -20,13 +20,7 @@ export const Starter = () => {
         </div>
 
 
-        <aside className="control-sidebar control-sidebar-dark">
-
-            <div className="p-3">
-                <h5>Title</h5>
-                <p>Sidebar content</p>
-            </div>
-        </aside>
+       <ControlSidebar/>
 
         <Footer/>
 

@@ -6,6 +6,7 @@ export const Header = () => {
 
     const [isSidebarCollapsed, setSidebarCollapsed] = useState(false);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
+    const [isControlSidebarCollapsed, setControlSidebarCollapsed] = useState(false);
     const handleToggleSidebar = () => {
         console.log('123')
         document.body.classList.toggle('sidebar-mini', isSidebarCollapsed);
@@ -13,6 +14,14 @@ export const Header = () => {
         document.body.classList.toggle('sidebar-collapse', isSidebarCollapsed);
 
         setSidebarCollapsed(!isSidebarCollapsed);
+
+    };
+    const handleToggleControlSidebar = () => {
+        console.log('123')
+        document.body.classList.toggle('sidebar-mini', isControlSidebarCollapsed);
+        document.body.classList.toggle('control-sidebar-slide-open', isControlSidebarCollapsed);
+
+        setControlSidebarCollapsed(!isControlSidebarCollapsed);
 
     };
     const handleToggleSearch = () => {
@@ -62,7 +71,7 @@ export const Header = () => {
 
 
             <li className="nav-item">
-                <a className="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+                <a className="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button" onClick={handleToggleControlSidebar}>
                     <i className="fas fa-th-large"></i>
                 </a>
             </li>
