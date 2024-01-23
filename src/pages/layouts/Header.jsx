@@ -1,38 +1,45 @@
-import { useState } from "react"
+import { useState, useCallback } from "react"
+import {useDispatch, useSelector} from 'react-redux';
+import {toggleControlSidebar, toggleSidebarMenu} from '@app/store/reducers/ui';
 import { MessagesDropdown } from "@pages/layouts/header/MessagesDropdown"
 import { NotificationDropdown } from "@pages/layouts/header/NotificationDropdown"
 
 export const Header = () => {
 
-    const [isSidebarCollapsed, setSidebarCollapsed] = useState(false);
+
     const [isSearchOpen, setIsSearchOpen] = useState(false);
-    const [isControlSidebarCollapsed, setControlSidebarCollapsed] = useState(false);
-    const handleToggleSidebar = () => {
-        console.log('123')
-        document.body.classList.toggle('sidebar-mini', isSidebarCollapsed);
-        document.body.classList.toggle('layout-fixed', isSidebarCollapsed);
-        document.body.classList.toggle('sidebar-collapse', isSidebarCollapsed);
-
-        setSidebarCollapsed(!isSidebarCollapsed);
-
-    };
-    const handleToggleControlSidebar = () => {
-        console.log('123')
-        document.body.classList.toggle('sidebar-mini', isControlSidebarCollapsed);
-        document.body.classList.toggle('control-sidebar-slide-open', isControlSidebarCollapsed);
-
-        setControlSidebarCollapsed(!isControlSidebarCollapsed);
-
-    };
     const handleToggleSearch = () => {
         console.log('rr');
         setIsSearchOpen(!isSearchOpen);
       };
+
+
+      const dispatch = useDispatch();
+      const navbarVariant = useSelector((state) => state.ui.navbarVariant);
+      const headerBorder = useSelector((state) => state.ui.headerBorder);
+
+      const handleToggleMenuSidebar = () => {
+        console.log('header is calling');
+        dispatch(toggleSidebarMenu());
+      };
+
+      const handleToggleControlSidebar = () => {
+        dispatch(toggleControlSidebar());
+      };
+
+      const getContainerClasses = useCallback(() => {
+        let classes = `main-header navbar navbar-expand ${navbarVariant}`;
+        if (headerBorder) {
+          classes = `${classes} border-bottom-0`;
+        }
+        return classes;
+      }, [navbarVariant, headerBorder]);
+
   return (
-    <nav className="main-header navbar navbar-expand navbar-white navbar-light">
+    <nav className={getContainerClasses()}>
         <ul className="navbar-nav">
             <li className="nav-item">
-                <a className="nav-link" data-widget="pushmenu" href="#" role="button" onClick={handleToggleSidebar}><i className="fas fa-bars"></i></a>
+                <a className="nav-link" data-widget="pushmenu" href="#" role="button" onClick={handleToggleMenuSidebar}><i className="fas fa-bars"></i></a>
             </li>
             <li className="nav-item d-none d-sm-inline-block">
                 <a href="index3.html" className="nav-link">Home</a>
@@ -66,10 +73,6 @@ export const Header = () => {
             </li>
             <MessagesDropdown/>
             <NotificationDropdown/>
-
-
-
-
             <li className="nav-item">
                 <a className="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button" onClick={handleToggleControlSidebar}>
                     <i className="fas fa-th-large"></i>
